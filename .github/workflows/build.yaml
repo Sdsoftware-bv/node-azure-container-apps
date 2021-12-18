@@ -66,7 +66,7 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az group create -g ${{ env.RESOURCE_GROUP }} -l westeurope
+            az group create -g ${{ env.RESOURCE_GROUP }} -l northeurope
             az deployment group create -g ${{ env.RESOURCE_GROUP }} -f ./deploy/main.bicep \
              -p \
                 minReplicas=0 \
