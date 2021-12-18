@@ -32,6 +32,7 @@ resource environment 'Microsoft.Web/kubeEnvironments@2021-02-01' = {
   name: environmentName
   location: location
   properties: {
+    type: 'managed'
     internalLoadBalancerEnabled: false
     appLogsConfiguration: {
       destination: 'log-analytics'
