@@ -70,7 +70,7 @@ jobs:
             az deployment group create -g ${{ env.RESOURCE_GROUP }} -f ./deploy/main.bicep \
              -p \
                 minReplicas=0 \
-                nodeImage='${{ needs.build.outputs.image-my-express-app }}' \
+                nodeImage='${{ needs.build.outputs.containerImage-expressapp }}' \
                 nodePort=3000 \
                 containerRegistry=${{ env.REGISTRY }} \
                 containerRegistryUsername=${{ github.actor }} \
