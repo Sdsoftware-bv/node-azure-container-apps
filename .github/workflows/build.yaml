@@ -56,8 +56,6 @@ jobs:
     steps:
       - name: ⚙ Checkout repository
         uses: actions/checkout@v2
-
-      - run: echo '${{ needs.build.outputs.containerImage-expressapp }}'
         
       - name: ⚙ Azure Login
         uses: azure/login@v1
@@ -68,6 +66,13 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az group create -g ${{ env.RESOURCE_GROUP }} -l europe
+            az group create -g ${{ env.RESOURCE_GROUP }} -l westeurope
+            az deployment group create -g ${{ secrets.RESOURCE_GROUP }} -f ./deploy/main.bicep \
+             -p \
+                minReplicas=0 \
+                nodeImage='${{ needs.build.outputs.image-my-express-app }}' \
+                nodePort=3000 \
+                containerRegistry=${{ env.REGISTRY }} \
+                containerRegistryUsername=${{ github.actor }} \
+                containerRegistryPassword=${{ secrets.PACKAGES_TOKEN }}
 
-          
